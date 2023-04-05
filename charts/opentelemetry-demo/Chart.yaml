@@ -29,3 +29,11 @@ dependencies:
     version: 6.51.2
     repository: https://grafana.github.io/helm-charts
     condition: grafana.enabled
+  - name: loki
+    version: 4.10.0
+    repository: https://grafana.github.io/helm-charts
+    condition: loki.enabled
+  - name: fluent-bit
+    version: 0.25.0
+    repository: https://fluent.github.io/helm-charts
+    condition: fluent-bit.enabled

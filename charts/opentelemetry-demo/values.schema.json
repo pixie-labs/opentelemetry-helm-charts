@@ -44,6 +44,12 @@
     },
     "grafana": {
       "type": "object"
+    },
+    "loki": {
+      "type": "object"
+    },
+    "fluent-bit": {
+      "type": "object"
     }
   },
   "required": [

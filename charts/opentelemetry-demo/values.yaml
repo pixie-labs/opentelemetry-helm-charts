@@ -606,7 +606,7 @@ opentelemetry-collector:
   mode: deployment
   resources:
     limits:
-      memory: 125Mi
+      memory: 4Gi
   service:
     type: ClusterIP
   ports:
@@ -645,18 +645,36 @@ opentelemetry-collector:
         resource_to_telemetry_conversion:
           enabled: true
         enable_open_metrics: true
-
+      loki:
+        endpoint: "http://loki-gateway:80/loki/api/v1/push"
+      logging:
     processors:
       # Make use of the spanmetrics processor to compute RED metrics from all tracing spans
       spanmetrics:
         metrics_exporter: prometheus
-
+      attributes:
+        actions:
+          - action: insert
+            key: log_file_name
+            from_attribute: log.file.name
+          - action: insert
+            key: loki.attribute.labels
+            value: log_file_name
+      memory_limiter:
+        check_interval: 1s
+        limit_percentage: 50
+        spike_limit_percentage: 30
     service:
       pipelines:
+        logs:
+          receivers: [otlp]
+          processors: [memory_limiter, attributes]
+          exporters: [loki, logging]
         traces:
           processors: [memory_limiter, spanmetrics, batch]
           exporters: [otlp, logging]
         metrics:
+          processors: [batch]
           exporters: [prometheus, logging]
 
 jaeger:
@@ -729,7 +747,75 @@ prometheus:
             - source_labels: [__meta_kubernetes_pod_annotation_opentelemetry_community_demo]
               action: keep
               regex: true
+fluent-bit:
+  enabled: true
+  config:
+    filters: |
+      [FILTER]
+          Name kubernetes
+          Match kube.*
+          Merge_Log On
+          Merge_Log_Trim On
+          Labels Off
+          Annotations Off
+          Keep_Log Off
+          K8S-Logging.Parser On
+          K8S-Logging.Exclude On
 
+      [FILTER]
+          Name                nest
+          Match               *
+          Wildcard            pod_name
+          Operation lift
+          Nested_under kubernetes
+          Add_prefix   kubernetes_
+
+      [FILTER]
+          Name                grep
+          Match               kube.*
+          Exclude             kubernetes_namespace_name kube-system
+
+      [FILTER]
+          Name                grep
+          Match               kube.*
+          Exclude             kubernetes_namespace_name pl
+
+    ## https://docs.fluentbit.io/manual/pipeline/outputs
+    outputs: |
+      [OUTPUT]
+          Name                 stdout
+          Match                kube.*
+      [OUTPUT]
+          Name                 opentelemetry
+          Match                kube.*
+          Host                 my-otel-demo-otelcol
+          Port                 4318
+          Metrics_uri          /v1/metrics
+          Logs_uri             /v1/logs
+          Traces_uri           /v1/traces
+          Log_response_payload True
+          Tls                  Off
+          Tls.verify           Off
+          # add user-defined labels
+          add_label            app fluent-bit
+          add_label            color blue
+loki:
+  enabled: true
+  loki:
+    auth_enabled: false
+    commonConfig:
+      replication_factor: 1
+    storage:
+      type: 'filesystem'
+  test:
+    enabled: false
+  monitoring:
+    selfMonitoring:
+      enabled: false
+      lokiCanary:
+        enabled: false
+  singleBinary:
+    replicas: 1
 grafana:
   enabled: true
   grafana.ini:
@@ -770,6 +856,11 @@ grafana:
           url: 'http://{{ include "otel-demo.name" . }}-jaeger-query:16686/jaeger/ui'
           editable: true
           isDefault: false
+        - name: Loki
+          type: loki
+          url: 'http://loki-gateway:80'
+          access: proxy
+          editable: true
   dashboardProviders:
     dashboardproviders.yaml:
       apiVersion: 1
