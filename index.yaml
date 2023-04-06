@@ -2702,6 +2702,49 @@ entries:
   opentelemetry-demo:
   - apiVersion: v2
     appVersion: 1.3.1
+    created: "2023-04-06T22:54:53.900581855Z"
+    dependencies:
+    - condition: opentelemetry-collector.enabled
+      name: opentelemetry-collector
+      repository: https://open-telemetry.github.io/opentelemetry-helm-charts
+      version: 0.49.1
+    - condition: jaeger.enabled
+      name: jaeger
+      repository: https://jaegertracing.github.io/helm-charts
+      version: 0.67.6
+    - condition: prometheus.enabled
+      name: prometheus
+      repository: https://prometheus-community.github.io/helm-charts
+      version: 19.7.2
+    - condition: grafana.enabled
+      name: grafana
+      repository: https://grafana.github.io/helm-charts
+      version: 6.51.2
+    - condition: loki.enabled
+      name: loki
+      repository: https://grafana.github.io/helm-charts
+      version: 4.10.0
+    - condition: fluent-bit.enabled
+      name: fluent-bit
+      repository: https://fluent.github.io/helm-charts
+      version: 0.25.0
+    description: opentelemetry demo helm chart
+    digest: a2cc2887943c2d460d6b481dcdf9637a5fa12ffe37e9a1766cd42fe96c98e1c1
+    home: https://opentelemetry.io/
+    icon: https://opentelemetry.io/img/logos/opentelemetry-logo-nav.png
+    maintainers:
+    - name: dmitryax
+    - name: puckpuck
+    - name: tylerhelmuth
+    name: opentelemetry-demo
+    sources:
+    - https://github.com/open-telemetry/opentelemetry-demo
+    type: application
+    urls:
+    - https://github.com/pixie-labs/opentelemetry-helm-charts/releases/download/opentelemetry-demo-1.0.2/opentelemetry-demo-1.0.2.tgz
+    version: 1.0.2
+  - apiVersion: v2
+    appVersion: 1.3.1
     created: "2023-04-06T21:29:42.757800739Z"
     dependencies:
     - condition: opentelemetry-collector.enabled
@@ -7106,4 +7149,4 @@ entries:
     urls:
     - https://github.com/open-telemetry/opentelemetry-helm-charts/releases/download/opentelemetry-operator-0.1.0/opentelemetry-operator-0.1.0.tgz
     version: 0.1.0
-generated: "2023-04-06T21:29:42.758597834Z"
+generated: "2023-04-06T22:54:53.901365059Z"
