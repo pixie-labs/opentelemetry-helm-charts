@@ -749,6 +749,7 @@ prometheus:
               regex: true
 fluent-bit:
   enabled: true
+  flush: 10
   config:
     filters: |
       [FILTER]
@@ -782,9 +783,6 @@ fluent-bit:
 
     ## https://docs.fluentbit.io/manual/pipeline/outputs
     outputs: |
-      [OUTPUT]
-          Name                 stdout
-          Match                kube.*
       [OUTPUT]
           Name                 opentelemetry
           Match                kube.*
