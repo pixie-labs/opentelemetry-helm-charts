@@ -788,7 +788,7 @@ fluent-bit:
       [OUTPUT]
           Name                 opentelemetry
           Match                kube.*
-          Host                 my-otel-demo-otelcol
+          Host                 {{ include "otel-demo.name" . }}-otelcol
           Port                 4318
           Metrics_uri          /v1/metrics
           Logs_uri             /v1/logs
