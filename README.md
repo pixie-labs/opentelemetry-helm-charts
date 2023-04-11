@@ -34,9 +34,13 @@ podman machine start
 minikube start --driver=podman --cpus=4 --memory=7680
 ```
 
-## Install demo apps
+## Install demo app, Fluentbit, Otel, and Prometheus
 
-We use helm to install the demo apps
+We use [helm](https://helm.sh/) to install the demo app, Fluentbit, Otel, and Prometheus. This demo has been tested with helm `v3.11.2`.
+
+```console
+brew install helm
+```
 
 ```console
 helm repo add otel-demo https://pixie-labs.github.io/opentelemetry-helm-charts
