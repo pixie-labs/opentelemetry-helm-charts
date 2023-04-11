@@ -79,3 +79,8 @@ helm install --namespace pl --create-namespace pixie pixie-operator/pixie-operat
 ```
 
 ## Cleanup
+
+```
+minikube delete 
+podman machine rm -f
+```
