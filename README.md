@@ -12,21 +12,21 @@ You may pick any k8s cluster to use, as long as it sized large enough to meet th
 
 ### Minikube Quickstart (Optional)
 
-We recommend the podman driver since it works on Linux machines that lack KVM support, Apple Silicon based macs, and Intel silicon based macs
+1. We recommend the podman driver since it works on Linux machines that lack KVM support, Apple Silicon based macs, and Intel silicon based macs
 
 ```console
 brew install podman
 brew install minikube
 ```
 
-Check installed versions. This demo has been tested with podman `v4` and minikube `v1.30`
+2. Check installed versions. This demo has been tested with podman `v4` and minikube `v1.30`
 
 ```console
 podman version
 minikube version
 ```
 
-Start a minikube cluster
+3. Start a minikube cluster
 
 ```console
 podman machine init --cpus 4 --memory 8192 --rootful
@@ -77,3 +77,5 @@ PIXIE_DEPLOY_KEY=$(px deploy-key create --short)
 
 helm install --namespace pl --create-namespace pixie pixie-operator/pixie-operator-chart --set deployKey="${PIXIE_DEPLOY_KEY}" --set clusterName="${USER}_otel_demo"
 ```
+
+## Cleanup
