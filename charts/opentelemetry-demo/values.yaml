@@ -606,7 +606,7 @@ opentelemetry-collector:
   mode: deployment
   resources:
     limits:
-      memory: 4Gi
+      memory: 1Gi
   service:
     type: ClusterIP
   ports:
