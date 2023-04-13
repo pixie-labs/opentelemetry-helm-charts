@@ -83,6 +83,16 @@ You may pick any k8s cluster to use, as long as it sized large enough to meet th
     helm install --namespace pl --create-namespace pixie pixie-operator/pixie-operator-chart --set deployKey="${PIXIE_DEPLOY_KEY}" --set clusterName="${USER}_otel_demo"
     ```
 
+## Port-Forward
+
+In order to access the demo application and dashboards, you should will need to forward the correct ports:
+
+    ```console
+    kubectl port-forward svc/my-otel-demo-frontendproxy 8080:8080
+    ```
+
+At this point, you should be able to go to [http://localhost:8080/](http://localhost:8080/) to access the demo application UI, and [http://localhost:8080/grafana](http://localhost:8080/grafana) to access the Grafana dashboards. 
+
 ## Cleanup
 
 ```console
