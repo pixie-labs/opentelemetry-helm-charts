@@ -6260,7 +6260,7 @@ data:
       "editable": true,
       "fiscalYearStartMonth": 0,
       "graphTooltip": 0,
-      "id": 10,
+      "id": 6,
       "links": [],
       "liveNow": false,
       "panels": [
@@ -6279,10 +6279,10 @@ data:
           "options": {
             "dedupStrategy": "none",
             "enableLogDetails": true,
-            "prettifyLogMessage": false,
+            "prettifyLogMessage": true,
             "showCommonLabels": false,
             "showLabels": false,
-            "showTime": false,
+            "showTime": true,
             "sortOrder": "Descending",
             "wrapLogMessage": false
           },
@@ -6310,14 +6310,14 @@ data:
         "list": []
       },
       "time": {
-        "from": "now-6h",
+        "from": "now-5m",
         "to": "now"
       },
       "timepicker": {},
       "timezone": "",
       "title": "Fluentbit Logs",
       "uid": "5VSvQgEVk",
-      "version": 1,
+      "version": 2,
       "weekStart": ""
     }
     `}}
