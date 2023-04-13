@@ -829,6 +829,8 @@ grafana:
   adminPassword: admin
   rbac:
     pspEnabled: false
+  plugins:
+    - pixie-pixie-datasource
   datasources:
     datasources.yaml:
       apiVersion: 1
@@ -858,6 +860,10 @@ grafana:
           type: loki
           url: 'http://loki-gateway:80'
           access: proxy
+          editable: true
+        - name: Pixie
+          uid: pixie
+          type: pixie-pixie-datasource
           editable: true
   dashboardProviders:
     dashboardproviders.yaml:
