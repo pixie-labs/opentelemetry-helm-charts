@@ -6085,7 +6085,7 @@ data:
       },
       "timepicker": {},
       "timezone": "",
-      "title": "Demo Dashboard",
+      "title": "Prometheus Dashboard",
       "uid": "W2gX2zHVk",
       "version": 1,
       "weekStart": ""
