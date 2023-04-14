@@ -87,15 +87,15 @@ You may pick any k8s cluster to use, as long as it sized large enough to meet th
 
 In order to access the demo application and dashboards, you should will need to forward the correct ports:
 
-    ```console
-    kubectl port-forward svc/my-otel-demo-frontendproxy 8080:8080
-    ```
+```console
+kubectl port-forward svc/my-otel-demo-frontendproxy 8080:8080
+```
 
-At this point, you should be able to go to [http://localhost:8080/](http://localhost:8080/) to access the demo application UI, and [http://localhost:8080/grafana](http://localhost:8080/grafana) to access the Grafana dashboards. 
+At this point, you should be able to go to [http://localhost:8080/](http://localhost:8080/) to access the demo application UI, and [http://localhost:8080/grafana](http://localhost:8080/grafana) to access the Grafana dashboards.
 
 ## Cleanup
 
 ```console
-minikube delete 
+minikube delete
 podman machine rm -f
 ```
