@@ -1,41 +1,23 @@
 # Fluentbit, Otel, Prometheus, Pixie Demo
 
-- [Setup a k8s cluster](#setup-a-k8s-cluster)
-  - [Minikube Quickstart (Optional)](#minikube-quickstart--optional-)
+- [Tool setup](#tool-setup)
+- [k8s Cluster Setup](#k8s-cluster-setup)
 - [Install demo apps](#install-demo-apps)
-- [Cleanup](#cleanup)
+- [Install Pixie](#install-pixie)
+- [Port-Forward](#port-forward)
 
-## Setup a k8s cluster
+## Tool setup
 
-You may pick any k8s cluster to use, as long as it sized large enough to meet the minimum requirements for the various tools we are demoing.
+This guide assumes that you have `helm`, `kubectl`, and (optionally) `minikube` installed.
 
-> :warning: **If you are using minikube ensure that you are using a driver supported by Pixie** (see [Pixie Requirements](https://docs.px.dev/installing-pixie/requirements/#kubernetes-local-development-environments))
+If not, you can follow the install guides for [helm](https://helm.sh/docs/intro/install/), [kubectl](https://kubernetes.io/docs/tasks/tools/), and [minikube](https://minikube.sigs.k8s.io/docs/start/) before proceeding with the rest of this setup.
 
-### Minikube Quickstart (Optional)
+## k8s Cluster Setup
 
-1. We recommend the podman driver since it works on Linux machines that lack KVM support, Apple Silicon based macs, and Intel silicon based macs.
+> :warning: Please review the cluster requirements for Pixie [here](https://docs.px.dev/installing-pixie/requirements/).
 
-1. For MacOS, we recommend homebrew to install podman and minikube. On Linux, follow your distro specific installers.
-
-    ```console
-    brew install podman
-    brew install minikube
-    ```
-
-1. Check installed versions. This demo has been tested with podman `v4` and minikube `v1.30`
-
-    ```console
-    podman version
-    minikube version
-    ```
-
-1. Start a minikube cluster
-
-    ```console
-    podman machine init --cpus 4 --memory 8192 --rootful
-    podman machine start
-    minikube start --driver=podman --cpus=4 --memory=7680
-    ```
+We strongly recommend using a cloud based k8s cluster for ease of deployment.
+If you need help setting up a cluster, follow the [cluster setup guide](cluster_setup.md).
 
 ## Install demo apps
 
@@ -56,13 +38,13 @@ You may pick any k8s cluster to use, as long as it sized large enough to meet th
 
 ## Install Pixie
 
-1. Get the Pixie CLI:
+1. Get the Pixie CLI
 
     ```console
     bash -c "$(curl -fsSL https://withpixie.ai/install.sh)"
     ```
 
-1. (optional) The CLI installer should prompt you to authenticate with Pixie but if it doesn't, you can auth manually by running the following:
+1. (optional) The CLI installer should prompt you to authenticate with Pixie but if it doesn't, you can auth manually by running the following
 
     ```console
     px auth login
@@ -85,17 +67,10 @@ You may pick any k8s cluster to use, as long as it sized large enough to meet th
 
 ## Port-Forward
 
-In order to access the demo application and dashboards, you should will need to forward the correct ports:
+In order to access the demo application and dashboards, you need to forward the correct ports:
 
 ```console
 kubectl port-forward svc/my-otel-demo-frontendproxy 8080:8080
 ```
 
 At this point, you should be able to go to [http://localhost:8080/](http://localhost:8080/) to access the demo application UI, and [http://localhost:8080/grafana](http://localhost:8080/grafana) to access the Grafana dashboards.
-
-## Cleanup
-
-```console
-minikube delete
-podman machine rm -f
-```
