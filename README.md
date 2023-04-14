@@ -70,7 +70,7 @@ If you need help setting up a cluster, follow the [cluster setup guide](cluster_
 In order to access the demo application and dashboards, you need to forward the correct ports:
 
 ```console
-kubectl port-forward svc/my-otel-demo-frontendproxy 8080:8080
+kubectl port-forward -n otel-demo svc/otel-demo-frontendproxy 8080:8080
 ```
 
 At this point, you should be able to go to [http://localhost:8080/](http://localhost:8080/) to access the demo application UI, and [http://localhost:8080/grafana](http://localhost:8080/grafana) to access the Grafana dashboards.
