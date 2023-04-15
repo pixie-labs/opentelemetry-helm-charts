@@ -6226,7 +6226,7 @@ data:
       },
       "timepicker": {},
       "timezone": "",
-      "title": "Jaeger Dashboard",
+      "title": "Traces Dashboard",
       "uid": "HubIfRE4k",
       "version": 1,
       "weekStart": ""

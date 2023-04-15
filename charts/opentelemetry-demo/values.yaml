@@ -881,4 +881,4 @@ grafana:
     default: '{{ include "otel-demo.name" . }}-grafana-dashboards'
   resources:
     limits:
-      memory: 75Mi
+      memory: 750Mi
