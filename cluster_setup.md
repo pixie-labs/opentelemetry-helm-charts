@@ -26,7 +26,7 @@ in your environment of choice.
 1. Start a minikube cluster
 
     ```console
-    minikube start --driver=kvm2 --cpus=4 --memory=7680
+    minikube start --driver=kvm2 --cpus=4 --memory=9216
     ```
 
 ### MacOS (Intel Based)
@@ -42,7 +42,7 @@ in your environment of choice.
 1. Start a minikube cluster
 
     ```console
-    minikube start --driver=hyperkit --cpus=4 --memory=7680
+    minikube start --driver=hyperkit --cpus=4 --memory=9216
     ```
 
 ### MacOS (Apple Silicon)
@@ -58,5 +58,5 @@ in your environment of choice.
 1. Start a minikube cluster
 
     ```console
-    minikube start --driver=qemu --cpus=4 --memory=7680
+    minikube start --driver=qemu --cpus=4 --memory=9216
     ```
