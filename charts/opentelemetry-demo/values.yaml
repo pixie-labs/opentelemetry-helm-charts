@@ -800,6 +800,10 @@ fluent-bit:
 loki:
   enabled: true
   loki:
+    image:
+      registry: gcr.io
+      repository: pixie-oss/demo-apps/grafana/loki
+      tag: 2.7.5
     auth_enabled: false
     commonConfig:
       replication_factor: 1
@@ -810,8 +814,14 @@ loki:
   monitoring:
     selfMonitoring:
       enabled: false
-      lokiCanary:
-        enabled: false
+      grafanaAgent:
+        installOperator: false
+    lokiCanary:
+      enabled: true
+      image:
+        registry: gcr.io
+        repository: pixie-oss/demo-apps/grafana/loki-canary
+        tag: 2.7.5
   singleBinary:
     replicas: 1
 grafana:
