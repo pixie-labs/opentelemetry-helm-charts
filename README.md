@@ -5,6 +5,7 @@
 - [Install demo apps](#install-demo-apps)
 - [Install Pixie](#install-pixie)
 - [Port-Forward](#port-forward)
+- [Tutorial](#tutorial)
 
 ## Tool setup
 
@@ -74,3 +75,7 @@ kubectl port-forward -n otel-demo svc/otel-demo-frontendproxy 8080:8080
 ```
 
 At this point, you should be able to go to [http://localhost:8080/](http://localhost:8080/) to access the demo application UI, and [http://localhost:8080/grafana](http://localhost:8080/grafana) to access the Grafana dashboards.
+
+## Tutorial
+
+You can now follow the [tutorial guide](tutorial_steps.md) to explore the various tools we have installed
