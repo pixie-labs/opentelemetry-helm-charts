@@ -160,7 +160,7 @@ components:
         memory: 20Mi
     initContainers:
       - name: wait-for-kafka
-        image: gcr.io/pixie-oss/demo-apps/busybox:latest
+        image: busybox:latest
         command: ['sh', '-c', 'until nc -z -v -w30 {{ include "otel-demo.name" . }}-kafka 9092; do echo waiting for kafka; sleep 2; done;']
 
   adService:
@@ -200,7 +200,7 @@ components:
         memory: 160Mi
     initContainers:
       - name: wait-for-redis
-        image: gcr.io/pixie-oss/demo-apps/busybox:latest
+        image: busybox:latest
         command: ['sh', '-c', 'until nc -z -v -w30 {{ include "otel-demo.name" . }}-redis 6379; do echo waiting for redis; sleep 2; done;']
 
   checkoutService:
@@ -233,7 +233,7 @@ components:
         memory: 20Mi
     initContainers:
       - name: wait-for-kafka
-        image: gcr.io/pixie-oss/demo-apps/busybox:latest
+        image: busybox:latest
         command: ['sh', '-c', 'until nc -z -v -w30 {{ include "otel-demo.name" . }}-kafka 9092; do echo waiting for kafka; sleep 2; done;']
 
   currencyService:
@@ -305,7 +305,7 @@ components:
       periodSeconds: 10
     initContainers:
       - name: wait-for-ffspostgres
-        image: gcr.io/pixie-oss/demo-apps/busybox:latest
+        image: busybox:latest
         command: ['sh', '-c', 'until nc -z -v -w30 {{ include "otel-demo.name" . }}-ffspostgres 5432; do echo waiting for ffspostgres; sleep 2; done']
 
   frauddetectionService:
@@ -324,7 +324,7 @@ components:
         memory: 200Mi
     initContainers:
       - name: wait-for-kafka
-        image: gcr.io/pixie-oss/demo-apps/busybox:latest
+        image: busybox:latest
         command: ['sh', '-c', 'until nc -z -v -w30 {{ include "otel-demo.name" . }}-kafka 9092; do echo waiting for kafka; sleep 2; done;']
 
   frontend:
@@ -536,7 +536,7 @@ components:
     useDefault:
       env: true
     imageOverride:
-      repository: gcr.io/pixie-oss/demo-apps/postgres
+      repository: postgres
       tag: "14"
     ports:
       - name: postgres
@@ -587,7 +587,7 @@ components:
     useDefault:
       env: true
     imageOverride:
-      repository: gcr.io/pixie-oss/demo-apps/redis
+      repository: redis
       tag: alpine
     ports:
       - name: redis
@@ -602,9 +602,6 @@ components:
 
 opentelemetry-collector:
   enabled: true
-  image:
-    repository: gcr.io/pixie-oss/demo-apps/otel/opentelemetry-collector-contrib
-    tag: 0.72.0
   nameOverride: otelcol
   mode: deployment
   resources:
@@ -684,10 +681,8 @@ jaeger:
   enabled: true
   provisionDataStore:
     cassandra: false
-  tag: 1.39.0
   allInOne:
     enabled: true
-    image: gcr.io/pixie-oss/demo-apps/jaegertracing/all-in-one
     args:
       - "--memory.max-traces"
       - "10000"
@@ -805,20 +800,11 @@ fluent-bit:
 loki:
   enabled: true
   loki:
-    image:
-      registry: gcr.io
-      repository: pixie-oss/demo-apps/grafana/loki
-      tag: 2.7.5
     auth_enabled: false
     commonConfig:
       replication_factor: 1
     storage:
       type: 'filesystem'
-  gateway:
-    image:
-      registry: gcr.io
-      repository: pixie-oss/demo-apps/nginxinc/nginx-unprivileged
-      tag: 1.19-alpine
   test:
     enabled: false
   monitoring:
@@ -828,17 +814,10 @@ loki:
         installOperator: false
     lokiCanary:
       enabled: true
-      image:
-        registry: gcr.io
-        repository: pixie-oss/demo-apps/grafana/loki-canary
-        tag: 2.7.5
   singleBinary:
     replicas: 1
 grafana:
   enabled: true
-  image:
-    repository: gcr.io/pixie-oss/demo-apps/grafana/grafana
-    tag: 9.3.8
   grafana.ini:
     auth:
       disable_login_form: true
